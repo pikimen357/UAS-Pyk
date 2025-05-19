@@ -1,0 +1,17 @@
+nav{
+    background-color: #C6AC66;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: smaller;
+    height: 60px;
+}
+
+footer {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+footer h5{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
