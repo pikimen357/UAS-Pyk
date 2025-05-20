@@ -5,6 +5,49 @@ nav{
     height: 60px;
 }
 
+#orderCont{
+
+    margin-top: 80px;
+    font-size: 7px;
+}
+
+/* #col2{
+  
+} */
+
+#jumlah{
+  width: 40px; 
+  height: fit-content;
+  text-align: center;
+  font-size: 8px;
+}
+
+#Pkacang{
+  font-size: 15px;
+}
+
+
+.transparent-text {
+  opacity: 0.6; /* Nilai antara 0 (transparan) hingga 1 (penuh) */
+  font-size: 10px;
+}
+
+#topImg{
+    margin-top: 20px;
+    margin-left: 13px;
+    max-width: 160px;
+    height: 130px;
+}
+
+#harga{
+  font-size: 13px;
+}
+
+#checkout{
+  max-width: 350px;
+  margin-left: 22px;
+}
+
 footer {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;

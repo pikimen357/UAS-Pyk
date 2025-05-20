@@ -21,6 +21,28 @@
         </div>
     </nav>
 
+    <div class="container" id="orderCont">
+        <div class="row">
+            <div class="col">
+                <img src="../assets/pkacang.png" class="" id="topImg" alt="">
+            </div>
+            <div class="col mt-3" id="col2">
+                <h5 id="Pkacang">Peyek Kacang</h5>
+                <p><strong>Rp50.000</strong></p>
+                <p id="toping" class="transparent-text">Kacang tanah</p>
+                <label for="jumlah" class="fw-bold">Jumlah (kg):</label>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                    <button type="button" class="btn btn-outline-dark" id="minus" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">−</button>
+                    <input type="text" class="form-control form-control-sm" id="jumlah" value="0.5"  readonly>
+                    <button type="button" class="btn btn-outline-dark" id="plus" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">＋</button>
+                </div>
+                <p class="mt-2 " id="harga">Rp25.000</p>
+                
+            </div>
+            <button class="btn btn-dark btn-sm" id="checkout">Checkout</button>
+        </div>
+    </div>
+
 
     <footer class="mt-auto py-3" style="background-color: #c8ae7c;">
         <div class="container ">
@@ -42,7 +64,8 @@
     </footer>
 
 
-
+        
+    <script src="./app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
