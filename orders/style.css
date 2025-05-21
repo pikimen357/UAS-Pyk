@@ -6,12 +6,111 @@ nav{
 }
 
 footer {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: #c8ae7c;
 }
 
 footer h5{
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+.order-list {
+    margin-bottom: 30px;
+}
+
+.order-card {
+    background-color: #f3f0e9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.order-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.order-date, .order-price {
+    color: #666;
+    font-size: 14px;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #C6AC66;
+    border-color: #C6AC66;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #b39b59;
+    border-color: #b39b59;
+}
+
+
+
+.pagination .page-link {
+    color: #2a2821;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #e6e2d7;
+    border-color: #ddd8cc;
+    color: white;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.img-fluid{
+  max-width: 300px;
+}
+
+@media (max-width: 768px) {
+
+    .img-fluid{
+      max-width: 100px;
+    }
+    
+    .social-icons {
+        margin-bottom: 15px;
+    }
+}
 

@@ -6,8 +6,82 @@ nav{
 }
 
 footer {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+.order-container {
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 30px;
+}
+
+.product-image {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.product-description {
+    color: #6c757d;
+}
+
+.payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.payment-logo {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+}
+
+.price-summary {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.total-price {
+    border-top: 1px solid #dee2e6;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.btn-dark {
+    background-color: #000;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-dark:hover {
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .payment-methods {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-check-inline {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

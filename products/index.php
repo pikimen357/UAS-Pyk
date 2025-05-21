@@ -13,9 +13,9 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="http://127.0.0.1:5500/landing/index.html">Peyek Kriuk</a>
+            <a class="navbar-brand fw-bold text-white" href="http://localhost:3000/landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white me-3" href="http://127.0.0.1:5500/login/index.html">Login</a>
+                <a class="nav-link d-inline text-white me-3" href="http://localhost:3000/login/index.php">Login</a>
                 <a class="nav-link d-inline text-white" href="#">Profile</a>
             </div>
         </div>
@@ -63,27 +63,28 @@
                     <p><span class="transparent-text">Kacang Kedelai</span><br>Rp52.000/kg</p>
                 </div>
             </div>
-
-
         </div>
-
     </main>
 
-    <footer class="mt-auto py-3" style="background-color: #c8ae7c;">
-        <div class="container ">
+    <footer class="mt-auto py-3">
+        <div class="container">
             <div class="row">
-
                 <!-- Kolom Kiri -->
                 <div class="col-md-6 mb-md-0 mb-3">
-                    <h5 class="text-white fw-bold mb-0">Peyek Kriuk ENI</h5>
+                    <h5 class="text-white fw-bold mb-2">Peyek Kriuk ENI</h5>
+                    <div class="social-icons">
+                        <a href="#" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-dark me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-dark me-2"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
 
                 <!-- Kolom Kanan -->
                 <div class="col-md-6 text-md-end">
-                    <p class="text-dark mb-1">Telp: 085229297152</p>
-                    <p class="text-dark mb-0 text-muted">Kismantoro, Wonogiri, Jawa Tengah</p>
+                    <p class="text-dark mb-1">085229297152</p>
+                    <p class="text-dark mb-0 text-muted">Terbis, Kismantoro, Wonogiri, Jawa Tengah</p>
                 </div>
-
             </div>
         </div>
     </footer>

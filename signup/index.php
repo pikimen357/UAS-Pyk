@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daftar Pesanan</title>
+    <title>Daftar Akun</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
@@ -13,10 +13,9 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="http://127.0.0.1:5500/landing/index.html">Peyek Kriuk</a>
+            <a class="navbar-brand fw-bold text-white" href="http://localhost:3000/landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white me-3" href="http://127.0.0.1:5500/login/index.html">Login</a>
-                <a class="nav-link d-inline text-white" href="#">Profile</a>
+                <a class="nav-link d-inline text-white" href="http://localhost:3000/login/index.php">Login</a>
             </div>
         </div>
     </nav>

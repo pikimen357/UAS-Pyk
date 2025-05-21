@@ -2,6 +2,7 @@ const jumlahInput = document.getElementById('jumlah');
 const plusBtn = document.getElementById('plus');
 const minusBtn = document.getElementById('minus');
 const harga = document.getElementById('harga');
+const checkout = document.querySelector('#checkout');
 
 let jumlah = 0.5;
 const hargaPerKg = 50000;
@@ -29,3 +30,7 @@ minusBtn.addEventListener('click', () => {
 
 // Panggil saat awal juga
 updateHarga();
+
+checkout.addEventListener('click', () => {
+    window.location.href = 'http://localhost:3000/order/index.php';
+});
