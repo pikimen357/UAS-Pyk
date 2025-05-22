@@ -5,6 +5,13 @@ nav{
     height: 60px;
 }
 
+#signup{
+  max-width:370px;
+  margin-top: 70px;
+  margin-bottom: 80px;
+  border-radius: 7px;
+}
+
 footer {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
