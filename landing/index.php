@@ -26,7 +26,7 @@
             <h1 class="fw-bold mt-4">Peyek Kriuk Pawon Eny</h1>
             <p class="transparent-text">Rempeyek renyah dipadukan dengan citarasa <br>khas bumbu daerah yang menggugah
                 selera.</p>
-            <button type="button"  id="pesan1"   class="btn btn-dark">Pesan Sekarang</button>
+            <button type="button"  id="pesan1"   class="pesan btn btn-dark">Pesan Sekarang</button>
         </div>
 
         <img src="../assets/pkacang.png" class="p-4" id="topImg" alt="">
@@ -47,7 +47,7 @@
                         gurih membuat anda ketagihan</p>
                 </div>
             </div>
-            <button type="button" class="btn btn-dark">Pesan</button>
+            <button type="button" id="pesan2"  class="btn btn-dark">Pesan</button>
         </div>
 
         <div class="container mb-5 p-4">
@@ -74,7 +74,7 @@
                 </div>
 
             </div>
-            <button type="button" class="btn btn-dark mt-3">Pesan</button>
+            <button type="button" id="pesan3"  class="btn btn-dark mt-3">Pesan</button>
         </div>
         <div class="container mb-5 p-4">
             <h4 class="fw-bold mb-4">Review Pemesan</h4>
