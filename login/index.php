@@ -13,9 +13,9 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="http://127.0.0.1:5500/landing/index.html">Peyek Kriuk</a>
+            <a class="navbar-brand fw-bold text-white" href="http://localhost:3000/landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white" href="http://127.0.0.1:5500/signup/index.html">Daftar</a>
+                <a class="nav-link d-inline text-white" href="http://localhost:3000/signup/index.php">Daftar</a>
             </div>
         </div>
     </nav>
