@@ -1,3 +1,29 @@
+<?php
+session_start();
+include_once("../config.php");
+
+// Redirect jika tidak login
+if (!isset($_SESSION['user'])) {
+  header("Location: ../login/");
+  exit();
+}
+
+$user = $_SESSION['user'];
+$checkout = $_SESSION['checkout'] ?? null;
+
+if (!$checkout) {
+  echo "Tidak ada data produk untuk checkout.";
+  exit();
+}
+
+// Dummy: ongkir & diskon
+$ongkir = 5000;
+$biaya_admin = 500;
+$diskon = 2000;
+
+$total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $diskon;
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -30,89 +56,93 @@
                     
                     <div class="product-info mb-4">
                         <div class="text-center mb-3">
-                            <img src="../assets/pkacang.png" alt="Peyek Kacang" class="product-image">
+                            <img src="<?= htmlspecialchars($checkout['gambar']) ?>" alt="Produk" class="product-image">
                         </div>
-                        <h4 class="product-title">Peyek Kacang (0,5 kg)</h4>
-                        <p class="product-description text-muted">Kacang Tanah</p>
+                        <h4 class="product-title"><?= htmlspecialchars($checkout['nama']) ?> (<?= $checkout['jumlah'] ?> kg)</h4>
+                        <p class="product-description text-muted"><?= htmlspecialchars($checkout['topping']) ?></p>
                     </div>
+
                     
-                    <form>
+                    <form method="post" action="proses_checkout.php">
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label for="pemesan" class="form-label">Pemesan</label>
-                                <input type="text" class="form-control" id="pemesan" placeholder="Rahmad">
+                                <input type="text" class="form-control" id="pemesan" name="pemesan"
+                                    value="<?= htmlspecialchars($user['nama']) ?>" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="telepon" class="form-label">Telepon (WhatsApp)</label>
-                                <input type="text" class="form-control" id="telepon" placeholder="085324521">
+                                <input type="text" class="form-control" id="telepon" name="telepon"
+                                    value="<?= htmlspecialchars($user['telepon'] ?? '') ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
-                                <input type="text" class="form-control" id="kecamatan" placeholder="Kismantoro">
+                                <input type="text" class="form-control" id="kecamatan" name="kecamatan" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="desa" class="form-label">Desa</label>
-                                <input type="text" class="form-control" id="desa" placeholder="Plosorejo">
+                                <input type="text" class="form-control" id="desa" name="desa" required>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Detail Alamat</label>
-                            <textarea class="form-control" id="alamat" rows="3" placeholder="RT.02 RW.01 (Depan rumah pak kades)"></textarea>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                         </div>
-                        
+
                         <div class="mb-4">
                             <label for="pesan" class="form-label">Pesan Khusus</label>
-                            <textarea class="form-control" id="pesan" rows="3" placeholder="Tolong peyeknya jangan terlalu keras"></textarea>
+                            <textarea class="form-control" id="pesan" name="pesan" rows="3"></textarea>
                         </div>
-                        
+
                         <div class="mb-4">
                             <label class="form-label">Metode Pembayaran</label>
                             <div class="payment-methods">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="payment" id="gopay" checked>
+                                    <input class="form-check-input" type="radio" name="payment" id="gopay" value="gopay" checked>
                                     <label class="form-check-label" for="gopay">
                                         <img src="../assets/gopay.png" alt="GoPay" class="payment-logo">
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="payment" id="qris">
+                                    <input class="form-check-input" type="radio" name="payment" id="qris" value="qris">
                                     <label class="form-check-label" for="qris">
                                         <img src="../assets/qris.png" alt="QRIS" class="payment-logo">
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="payment" id="cod">
+                                    <input class="form-check-input" type="radio" name="payment" id="cod" value="cod">
                                     <label class="form-check-label" for="cod">
                                         <img src="../assets/cod.png" alt="COD" class="payment-logo">
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="price-summary mb-4">
                             <div class="row">
                                 <div class="col-6">
-                                    <p>Harga: Rp25.000/kg</p>
-                                    <p>Ongkir: Rp5.000</p>
+                                    <p>Harga: Rp<?= number_format($checkout['harga'], 0, ',', '.') ?>/kg</p>
+                                    <p>Ongkir: Rp<?= number_format($ongkir, 0, ',', '.') ?></p>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <p>Biaya admin: Rp500</p>
-                                    <p>Diskon: Rp2.000</p>
+                                    <p>Biaya admin: Rp<?= number_format($biaya_admin, 0, ',', '.') ?></p>
+                                    <p>Diskon: Rp<?= number_format($diskon, 0, ',', '.') ?></p>
                                 </div>
                             </div>
                             <div class="total-price">
-                                <h5 class="text-center">Total: Rp28.500</h5>
+                                <h5 class="text-center">Total: Rp<?= number_format($total, 0, ',', '.') ?></h5>
                             </div>
                         </div>
-                        
+
                         <div class="d-grid">
                             <button type="submit" class="btn btn-dark btn-lg" id="beli">Beli</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

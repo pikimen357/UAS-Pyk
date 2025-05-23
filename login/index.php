@@ -21,9 +21,10 @@ if (isset($_POST['submit'])) {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['password'])) {
                 $successMessage = "Login berhasil." . htmlspecialchars($user['nama']) . "!";
+                
                 // (Opsional) Set session
-                // session_start();
-                // $_SESSION['user'] = $user;
+                session_start();
+                $_SESSION['user'] = $user;
 
                 // // Redirect ke dashboard
                 header("Location: ../landing/index.php");

@@ -1,36 +1,74 @@
-const jumlahInput = document.getElementById('jumlah');
-const plusBtn = document.getElementById('plus');
-const minusBtn = document.getElementById('minus');
-const harga = document.getElementById('harga');
-const checkout = document.querySelector('#checkout');
+    const jumlahInput = document.getElementById('jumlah');
+    const plusBtn = document.getElementById('plus');
+    const minusBtn = document.getElementById('minus');
+    const harga = document.getElementById('harga');
+    const checkout = document.getElementById('checkout');
 
-let jumlah = 0.5;
-const hargaPerKg = 50000;
+    const topImg = document.getElementById('topImg');
+    const topTitle = document.getElementById('Pkacang');
+    const topHargaDisplay = document.getElementById('hargaDisplay');
+    const topTopping = document.getElementById('toping');
 
-function updateHarga() {
-    const total = jumlah * hargaPerKg;
-    harga.textContent = `Rp${total.toLocaleString('id-ID')}`;
-}
+    const varianItems = document.querySelectorAll('.varian-item');
 
-plusBtn.addEventListener('click', () => {
-    if (jumlah < 5) {
+    let jumlah = 0.5;
+    let hargaPerKg = 50000;
+
+    function updateHarga() {
+      const total = jumlah * hargaPerKg;
+      harga.textContent = `Rp${total.toLocaleString('id-ID')}`;
+    }
+
+    plusBtn.addEventListener('click', () => {
+      if (jumlah < 5) {
         jumlah = parseFloat((jumlah + 0.25).toFixed(2));
         jumlahInput.value = jumlah;
         updateHarga();
-    }
-});
+      }
+    });
 
-minusBtn.addEventListener('click', () => {
-    if (jumlah > 0.25) {
+    minusBtn.addEventListener('click', () => {
+      if (jumlah > 0.25) {
         jumlah = parseFloat((jumlah - 0.25).toFixed(2));
         jumlahInput.value = jumlah;
         updateHarga();
-    }
-});
+      }
+    });
 
-// Panggil saat awal juga
-updateHarga();
+    updateHarga();
 
-checkout.addEventListener('click', () => {
-    window.location.href = '../order/index.php';
-});
+    checkout.addEventListener('click', () => {
+        const data = {
+            nama: document.getElementById("Pkacang").textContent,
+            topping: document.getElementById("toping").textContent,
+            jumlah: parseFloat(document.getElementById("jumlah").value),
+            harga: parseInt(document.getElementById("harga").getAttribute("value")),
+            gambar: document.getElementById("topImg").getAttribute("src"),
+        };
+
+        fetch("set_checkout.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        }).then(() => {
+            window.location.href = "../order/index.php";
+        });
+    });
+
+    // Fungsi ganti varian utama saat diklik
+    varianItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const nama = item.getAttribute('data-nama');
+        const hargaBaru = parseInt(item.getAttribute('data-harga'));
+        const topping = item.getAttribute('data-topping');
+        const gambar = item.getAttribute('data-gambar');
+
+        topImg.src = gambar;
+        topTitle.textContent = nama;
+        topHargaDisplay.innerHTML = `<strong>Rp${hargaBaru.toLocaleString('id-ID')}/kg</strong>`;
+        topTopping.textContent = `Toping ${topping}`;
+
+        hargaPerKg = hargaBaru;
+        updateHarga();
+      });
+    });

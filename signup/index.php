@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
 
-    <div id="signup" class="container" style="background-color: #c8ae7c;">
+    <div id="signup" class="container p-4" style="background-color: #c8ae7c;">
         <form action="index.php" method="post" class="p-3">
 
             <div class="row mb-3">
