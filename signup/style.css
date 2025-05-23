@@ -5,6 +5,13 @@ nav{
     height: 60px;
 }
 
+body {
+  background-image: url('../assets/bumbu.png');
+  background-size: 700px auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
 #signup{
   max-width:370px;
   margin-top: 70px;

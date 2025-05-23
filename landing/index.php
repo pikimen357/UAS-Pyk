@@ -15,8 +15,8 @@
         <div class="container">
             <a class="navbar-brand fw-bold text-white" href="#">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white me-3" href="http://localhost:3000/signup/index.php">Daftar</a>
-                <a class="nav-link d-inline text-white" href="http://localhost:3000/login/index.php">Login</a>
+                <a class="nav-link d-inline text-white me-3" href="../signup/index.php">Daftar</a>
+                <a class="nav-link d-inline text-white" href="../login/index.php">Login</a>
             </div>
         </div>
     </nav>

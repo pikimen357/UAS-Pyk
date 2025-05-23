@@ -66,9 +66,9 @@ if (isset($_POST['submit'])) {
     <!-- HEADER JANGAN DIUBAH -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="http://localhost:3000/landing/index.php">Peyek Kriuk</a>
+            <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white" href="http://localhost:3000/login/index.php">Login</a>
+                <a class="nav-link d-inline text-white" href="../login/index.php">Login</a>
             </div>
         </div>
     </nav>

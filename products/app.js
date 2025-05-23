@@ -32,5 +32,5 @@ minusBtn.addEventListener('click', () => {
 updateHarga();
 
 checkout.addEventListener('click', () => {
-    window.location.href = 'http://localhost:3000/order/index.php';
+    window.location.href = '../order/index.php';
 });

@@ -5,6 +5,23 @@ nav{
     height: 60px;
 }
 
+body {
+  background-image: url('../assets/bumbu.png');
+  background-size: 500px auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+#loginContainer{
+  margin-top: 160px;
+  background-color: #C2A675;
+  max-width: 300px;
+  height: 320px;
+  align-items: center;
+  justify-content: center;
+  
+}
+
 footer {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
