@@ -2,46 +2,33 @@
 session_start();
 include_once("../config.php");
 
-// Pastikan pengguna sudah login
 if (!isset($_SESSION['user'])) {
   header("Location: ../login/");
   exit();
 }
 
-// Ambil data dari GET atau POST
-$id_peyek = $_GET['id'] ?? $_POST['id'] ?? null;
-$jumlah = $_GET['jumlah'] ?? $_POST['jumlah'] ?? 1; // default 1
+// Ambil data dari fetch JSON
+$data = json_decode(file_get_contents("php://input"), true);
 
-if (!$id_peyek) {
-  echo "ID produk tidak ditemukan.";
+if (!$data || !isset($data['id_peyek'])) {
+  http_response_code(400);
+  echo "Data tidak lengkap";
   exit();
 }
 
-// Query data peyek dari database
-$query = "SELECT * FROM peyek WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $id_peyek);
-$stmt->execute();
-$result = $stmt->get_result();
+$jumlah_harga = $data['jumlah'] * $data['harga'];
 
-if ($result->num_rows === 0) {
-  echo "Produk tidak ditemukan.";
-  exit();
-}
-
-$data = $result->fetch_assoc();
-
-// Simpan ke session checkout
+// Simpan ke session
 $_SESSION['checkout'] = [
-  'id_peyek' => $data['id'],
+  'id_peyek' => $data['id_peyek'],
   'nama' => $data['nama'],
   'topping' => $data['topping'],
   'harga' => $data['harga'],
-  'jumlah' => $jumlah,
+  'jumlah' => $data['jumlah'],
+  'jumlah_harga' => $jumlah_harga,
   'gambar' => $data['gambar']
 ];
 
-// Redirect ke halaman checkout
-header("Location: ../order/index.php");
-exit();
+// Tidak perlu query ulang ke DB karena semua data sudah dikirim dari JS
+echo "Checkout disimpan";
 ?>

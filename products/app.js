@@ -10,6 +10,7 @@
     const topTopping = document.getElementById('toping');
 
     const varianItems = document.querySelectorAll('.varian-item');
+    // const selectedId = document.querySelector('.varian-item[data-gambar="' + varianItems.src.split('/').pop() + '"]')?.getAttribute("data-id");
 
     let jumlah = 0.5;
     let hargaPerKg = 50000;
@@ -39,6 +40,7 @@
 
     checkout.addEventListener('click', () => {
         const data = {
+            id_peyek: document.getElementById("topImg").dataset.id,
             nama: document.getElementById("Pkacang").textContent,
             topping: document.getElementById("toping").textContent,
             jumlah: parseFloat(document.getElementById("jumlah").value),
@@ -62,13 +64,16 @@
         const hargaBaru = parseInt(item.getAttribute('data-harga'));
         const topping = item.getAttribute('data-topping');
         const gambar = item.getAttribute('data-gambar');
+        const idPeyek = item.getAttribute('data-id');
 
         topImg.src = gambar;
+        topImg.dataset.id = idPeyek;
         topTitle.textContent = nama;
         topHargaDisplay.innerHTML = `<strong>Rp${hargaBaru.toLocaleString('id-ID')}/kg</strong>`;
         topTopping.textContent = `Toping ${topping}`;
 
         hargaPerKg = hargaBaru;
+        harga.setAttribute("value", hargaBaru); 
         updateHarga();
       });
     });

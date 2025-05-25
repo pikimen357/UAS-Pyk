@@ -12,7 +12,8 @@ if (isset($_POST['submit'])) {
     if (empty($password)) $errors[] = "Password tidak boleh kosong";
 
     if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT * FROM user WHERE nama = ?");
+        $stmt = $conn->prepare("SELECT * FROM user JOIN Peyek.lokasi l on l.id_lokasi = user.id_lokasi
+        WHERE nama =  ?");
         $stmt->bind_param("s", $nama);
         $stmt->execute();
         $result = $stmt->get_result();

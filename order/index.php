@@ -11,17 +11,23 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 $checkout = $_SESSION['checkout'] ?? null;
 
+$lokasi_list = [];
+$res = mysqli_query($conn, "SELECT * FROM lokasi");
+while ($row = mysqli_fetch_assoc($res)) {
+    $lokasi_list[] = $row;
+}
+
 if (!$checkout) {
   echo "Tidak ada data produk untuk checkout.";
   exit();
 }
 
-// Dummy: ongkir & diskon
-$ongkir = 5000;
-$biaya_admin = 500;
+
+
+$ongkir = 5000; // Asumsi ongkir tetap
 $diskon = 2000;
 
-$total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $diskon;
+// $total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $diskon;
 ?>
 
 <!doctype html>
@@ -79,18 +85,33 @@ $total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $
 
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <label for="kecamatan" class="form-label">Kecamatan</label>
-                                <input type="text" class="form-control" id="kecamatan" name="kecamatan" required>
+                                <label class="form-label" for="kecamatan">Kecamatan</label>
+                                <select name="kecamatan" id="kecamatan" onchange="filterDesa()" class="form-select" required>
+                                    <option value="">Pilih Kecamatan</option>
+                                    <?php
+                                    $unique_kec = array_unique(array_column($lokasi_list, 'kecamatan'));
+                                    foreach ($unique_kec as $kec) {
+                                        $selected = ($user['kecamatan'] ?? '') === $kec ? 'selected' : '';
+                                        echo "<option value=\"$kec\" $selected>$kec</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
+
                             <div class="col-md-6">
-                                <label for="desa" class="form-label">Desa</label>
-                                <input type="text" class="form-control" id="desa" name="desa" required>
+                                <label class="form-label" for="desa">Desa</label>
+                                <select name="desa" id="desa" class="form-select" required>
+                                    <option value=""><?= htmlspecialchars($user['desa'] ?? 'Pilih Desa') ?></option>
+                                </select>
                             </div>
                         </div>
 
+
+
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Detail Alamat</label>
-                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required><?= htmlspecialchars($user['alamat']) ?></textarea>
+
                         </div>
 
                         <div class="mb-4">
@@ -125,16 +146,17 @@ $total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $
                         <div class="price-summary mb-4">
                             <div class="row">
                                 <div class="col-6">
-                                    <p>Harga: Rp<?= number_format($checkout['harga'], 0, ',', '.') ?>/kg</p>
-                                    <p>Ongkir: Rp<?= number_format($ongkir, 0, ',', '.') ?></p>
+                                    <p>Harga: Rp<?= number_format($checkout['jumlah_harga'], 0, ',', '.') ?></p>
+                                    <p>Ongkir: Rp5.000</p>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <p>Biaya admin: Rp<?= number_format($biaya_admin, 0, ',', '.') ?></p>
-                                    <p>Diskon: Rp<?= number_format($diskon, 0, ',', '.') ?></p>
+                                    <p class="fst-italic">Diskon: Rp<?= number_format($diskon, 0, ',', '.') ?></p>
                                 </div>
                             </div>
                             <div class="total-price">
-                                <h5 class="text-center">Total: Rp<?= number_format($total, 0, ',', '.') ?></h5>
+                                <h5 class="text-center">Total: Rp<?= 
+                                // $total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $diskon;
+                                $tot_ech = number_format(($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $diskon, 0, ',', '.') ?></h5>
                             </div>
                         </div>
 
@@ -164,6 +186,41 @@ $total = ($checkout['jumlah'] * $checkout['harga']) + $ongkir + $biaya_admin - $
         </div>
     </footer>
 
+    <script>
+            const lokasiList = <?= json_encode($lokasi_list) ?>;
+
+            function filterDesa() {
+                const kecamatan = document.getElementById('kecamatan').value;
+                const desaSelect = document.getElementById('desa');
+
+                // Kosongkan desa
+                desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+
+                // Filter desa berdasarkan kecamatan
+                const desaList = lokasiList.filter(loc => loc.kecamatan === kecamatan);
+
+                desaList.forEach(loc => {
+                    const option = document.createElement('option');
+                    option.value = loc.desa;
+                    option.textContent = loc.desa;
+                    desaSelect.appendChild(option);
+                });
+
+                // Jika user sebelumnya sudah punya desa, coba set lagi secara otomatis
+                <?php if (!empty($user['desa'])): ?>
+                    const userDesa = <?= json_encode($user['desa']) ?>;
+                    desaSelect.value = userDesa;
+                <?php endif; ?>
+            }
+
+            // Auto trigger saat load (jika ada default dari user)
+            window.addEventListener('DOMContentLoaded', function () {
+                <?php if (!empty($user['kecamatan'])): ?>
+                    document.getElementById('kecamatan').value = <?= json_encode($user['kecamatan']) ?>;
+                    filterDesa();
+                <?php endif; ?>
+            });
+    </script>
     <script src="./app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
