@@ -1,0 +1,24 @@
+        *{
+            zoom: 110%;
+        }
+        body {
+            padding-top: 80px; /* agar tidak tertutup navbar */
+            background-color: #f8f9fa;
+        }
+
+        nav{
+            background-color: #C6AC66;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: smaller;
+            height: 60px;
+        }
+
+        footer {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+            background-color: #c8ae7c;
+        }
+
+        .social-icons a {
+            font-size: 1.25rem;
+        }

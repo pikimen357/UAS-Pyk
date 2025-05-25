@@ -1,3 +1,40 @@
+<?php
+include_once("../config.php");
+
+$sql = "SELECT o.id_order,p2.nama_peyek,p2.gambar ,oi.jumlah_kg,o.tgl_pesan, p.jumlah_bayar, o.status  FROM orders
+JOIN Peyek.order_items oi on orders.id_order = oi.id_order
+JOIN Peyek.payment p on p.id_payment = orders.id_payment
+JOIN Peyek.peyek p2 on p2.id_peyek = oi.id_peyek
+JOIN Peyek.orders o on o.id_order = oi.id_order;";
+$result = $conn->query($sql);
+
+// Function to format currency
+function formatRupiah($angka) {
+    return "Rp" . number_format($angka, 0, ',', '.');
+}
+
+// Function to format date
+function formatTanggal($tanggal) {
+    return date('d F Y', strtotime($tanggal));
+}
+
+// Function to get status badge class
+function getStatusBadge($status) {
+    switch(strtolower($status)) {
+        case 'selesai':
+            return 'bg-success';
+        case 'dikirim':
+            return 'bg-warning text-dark';
+        case 'diproses':
+            return 'bg-info';
+        case 'dibatalkan':
+            return 'bg-secondary';
+        default:
+            return 'bg-primary';
+    }
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -9,6 +46,120 @@
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        nav{
+            background-color: #C6AC66;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: smaller;
+            height: 60px;
+        }
+
+        footer {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+            background-color: #c8ae7c;
+        }
+
+        footer h5{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .order-list {
+            margin-bottom: 30px;
+        }
+
+        .order-card {
+            background-color: #f3f0e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .order-date, .order-price {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #C6AC66;
+            border-color: #C6AC66;
+            padding: 8px 16px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: #b39b59;
+            border-color: #b39b59;
+        }
+
+        .pagination .page-link {
+            color: #2a2821;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #e6e2d7;
+            border-color: #ddd8cc;
+            color: white;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .img-fluid{
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .img-fluid{
+                max-width: 100px;
+            }
+            
+            .social-icons {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -30,80 +181,51 @@
                 
                 <!-- Order Cards -->
                 <div class="order-list">
-                    <!-- Order 1 -->
-                    <div class="order-card mb-3 rounded" style="background-color: #f3f0e9; max-width: 340px;">
-                        <div class="row align-items-center p-3">
-                            <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
-                                <img src="../assets/pkacang.png" alt="Peyek Kacang" class="img-fluid rounded" style="width: 300px;">
+                    <?php if ($result && $result->num_rows > 0): ?>
+                        <?php while($row = $result->fetch_assoc()): ?>
+                            <div class="order-card mb-3 rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
+                                        <img src="<?php echo !empty($row['gambar']) ? '../assets/' . $row['gambar'] : '../assets/default.png'; ?>" 
+                                             alt="<?php echo htmlspecialchars($row['nama_peyek']); ?>" 
+                                             class="img-fluid rounded">
+                                    </div>
+                                    <div class="col-md-7 col-sm-9">
+                                        <h5 class="order-title">
+                                            <?php echo htmlspecialchars($row['nama_peyek']); ?> 
+                                            (<?php echo $row['jumlah_kg']; ?> kg)
+                                        </h5>
+                                        <p class="order-date mb-1">
+                                            Tanggal: <?php echo formatTanggal($row['tgl_pesan']); ?>
+                                        </p>
+                                        <p class="order-price mb-1">
+                                            Total: <?php echo formatRupiah($row['jumlah_bayar']); ?>
+                                        </p>
+                                        <span class="badge <?php echo getStatusBadge($row['status']); ?>">
+                                            <?php echo ucfirst($row['status']); ?>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 mt-3 mt-md-0 text-md-end">
+                                        <button class="btn btn-primary" onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
+                                            Lihat Detail
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-7 col-sm-9">
-                                <h5 class="order-title">Peyek Kacang (0,5 kg)</h5>
-                                <p class="order-date mb-1">Tanggal: 21 Mei 2024</p>
-                                <p class="order-price mb-1">Total: Rp28.500</p>
-                                <span class="badge bg-success">Selesai</span>
-                            </div>
-                            <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                <button class="btn btn-primary">Lihat Detail</button>
-                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Tidak ada pesanan</h4>
+                            <p>Anda belum memiliki pesanan apapun. Silakan mulai berbelanja untuk melihat riwayat pesanan Anda di sini.</p>
+                            <hr>
+                            <p class="mb-0">
+                                <a href="../landing/index.php" class="btn btn-primary">Mulai Belanja</a>
+                            </p>
                         </div>
-                    </div>
-                    
-                    <!-- Order 2 -->
-                    <div class="order-card mb-3 rounded" style="background-color: #f3f0e9; max-width: 340px;">
-                        <div class="row align-items-center p-3">
-                            <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
-                                <img src="../assets/rebon.png" alt="Peyek Kacang" class="img-fluid rounded" style="width: 300px;">
-                            </div>
-                            <div class="col-md-7 col-sm-9">
-                                <h5 class="order-title">Peyek Udang (0,5 kg)</h5>
-                                <p class="order-date mb-1">Tanggal: 18 Mei 2024</p>
-                                <p class="order-price mb-1">Total: Rp32.500</p>
-                                <span class="badge bg-warning text-dark">Dikirim</span>
-                            </div>
-                            <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                <button class="btn btn-primary">Lihat Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Order 3 -->
-                    <div class="order-card mb-3 rounded" style="background-color: #f3f0e9; max-width: 340px;">
-                        <div class="row align-items-center p-3">
-                            <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
-                                <img src="../assets/rebon.png" alt="Peyek Teri" class="img-fluid rounded" style="width: 300px;">
-                            </div>
-                            <div class="col-md-7 col-sm-9">
-                                <h5 class="order-title">Peyek Teri (1 kg)</h5>
-                                <p class="order-date mb-1">Tanggal: 15 Mei 2024</p>
-                                <p class="order-price mb-1">Total: Rp55.000</p>
-                                <span class="badge bg-success">Selesai</span>
-                            </div>
-                            <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                <button class="btn btn-primary">Lihat Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Order 4 -->
-                    <div class="order-card mb-3 rounded" style="background-color: #f3f0e9; max-width: 340px;">
-                        <div class="row align-items-center p-3">
-                            <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
-                                <img src="../assets/kedelai.png" alt="Peyek Mix" class="img-fluid rounded" style="width: 300px;">
-                            </div>
-                            <div class="col-md-7 col-sm-9">
-                                <h5 class="order-title">Peyek Mix (0,5 kg)</h5>
-                                <p class="order-date mb-1">Tanggal: 10 Mei 2024</p>
-                                <p class="order-price mb-1">Total: Rp30.000</p>
-                                <span class="badge bg-secondary">Dibatalkan</span>
-                            </div>
-                            <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                <button class="btn btn-primary">Lihat Detail</button>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
                 
-                <!-- Pagination -->
+                <!-- Pagination (jika diperlukan untuk data yang banyak) -->
                 <!-- <nav aria-label="Page navigation" class="mt-4">
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
@@ -143,6 +265,12 @@
         </div>
     </footer>
 
+    <script>
+        function lihatDetail(idOrder) {
+            // Redirect ke halaman detail pesanan
+            window.location.href = 'detail_pesanan.php?id=' + idOrder;
+        }
+    </script>
     <script src="./app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

@@ -143,14 +143,16 @@ $diskon = 2000;
                             </div>
                         </div>
 
+
+                        <!-- Dont't send from client!! -->
                         <div class="price-summary mb-4">
                             <div class="row">
                                 <div class="col-6">
                                     <p>Harga: Rp<?= number_format($checkout['jumlah_harga'], 0, ',', '.') ?></p>
-                                    <p>Ongkir: Rp5.000</p>
+                                    <p name="ongkir">Ongkir: Rp5.000</p>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <p class="fst-italic">Diskon: Rp<?= number_format($diskon, 0, ',', '.') ?></p>
+                                    <p class="fst-italic" name="diskon">Diskon: Rp<?= number_format($diskon, 0, ',', '.') ?></p>
                                 </div>
                             </div>
                             <div class="total-price">
