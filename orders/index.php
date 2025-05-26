@@ -1,11 +1,22 @@
 <?php
+session_start();
 include_once("../config.php");
+
+// Redirect jika tidak login
+if (!isset($_SESSION['user'])) {
+  header("Location: ../login/");
+  exit();
+}
+
+$user = $_SESSION['user'];
+$user_id = $user['id_user'];
 
 $sql = "SELECT o.id_order,p2.nama_peyek,p2.gambar ,oi.jumlah_kg,o.tgl_pesan, p.jumlah_bayar, o.status  FROM orders
 JOIN Peyek.order_items oi on orders.id_order = oi.id_order
 JOIN Peyek.payment p on p.id_payment = orders.id_payment
 JOIN Peyek.peyek p2 on p2.id_peyek = oi.id_peyek
-JOIN Peyek.orders o on o.id_order = oi.id_order;";
+JOIN Peyek.orders o on o.id_order = oi.id_order
+WHERE o.id_user = $user_id";
 $result = $conn->query($sql);
 
 // Function to format currency
@@ -225,19 +236,7 @@ function getStatusBadge($status) {
                     <?php endif; ?>
                 </div>
                 
-                <!-- Pagination (jika diperlukan untuk data yang banyak) -->
-                <!-- <nav aria-label="Page navigation" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav> -->
+
             </div>
         </div>
     </main>
@@ -268,7 +267,7 @@ function getStatusBadge($status) {
     <script>
         function lihatDetail(idOrder) {
             // Redirect ke halaman detail pesanan
-            window.location.href = 'detail_pesanan.php?id=' + idOrder;
+            window.location.href = '../order/checkout_sukses.php?id=' + idOrder;
         }
     </script>
     <script src="./app.js"></script>

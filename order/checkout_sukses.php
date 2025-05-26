@@ -2,6 +2,14 @@
 session_start();
 include_once("../config.php");
 
+// Redirect jika tidak login
+if (!isset($_SESSION['user'])) {
+  header("Location: ../login/");
+  exit();
+}
+
+$user = $_SESSION['user'];
+
 if (!isset($_GET['id_order'])) {
     die("ID order tidak ditemukan.");
 }
@@ -103,7 +111,7 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 <ul class="list-group">
                     <li class="list-group-item"><strong>Kecamatan:</strong> <?= htmlspecialchars($order['kecamatan']) ?></li>
                     <li class="list-group-item"><strong>Desa:</strong> <?= htmlspecialchars($order['desa']) ?></li>
-                    <li class="list-group-item"><strong>Alamat:</strong> <?= nl2br(htmlspecialchars($order['pesan'])) ?></li>
+                    <!-- <li class="list-group-item"><strong>Alamat:</strong> <?= nl2br(htmlspecialchars($user['alamat'])) ?></li> -->
                 </ul>
             </div>
         </div>
@@ -150,7 +158,7 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <p><?= strtoupper($order['metode']) ?> (dibayar pada <?= $order['tgl_payment'] ?>)</p>
 
         <div class="text-center mt-4">
-            <a href="index.php" class="btn btn-primary">Kembali ke Beranda</a>
+            <a href="../orders/index.php" class="btn btn-primary">Kembali ke Beranda</a>
         </div>
     </main>
 

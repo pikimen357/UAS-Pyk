@@ -189,39 +189,82 @@ $diskon = 2000;
     </footer>
 
     <script>
-            const lokasiList = <?= json_encode($lokasi_list) ?>;
+        const lokasiList = <?= json_encode($lokasi_list) ?>;
 
-            function filterDesa() {
-                const kecamatan = document.getElementById('kecamatan').value;
-                const desaSelect = document.getElementById('desa');
+        function filterDesa() {
+            const kecamatan = document.getElementById('kecamatan').value;
+            const desaSelect = document.getElementById('desa');
 
-                // Kosongkan desa
-                desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+            // Kosongkan desa
+            desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
 
-                // Filter desa berdasarkan kecamatan
-                const desaList = lokasiList.filter(loc => loc.kecamatan === kecamatan);
+            const desaList = lokasiList.filter(loc => loc.kecamatan === kecamatan);
 
-                desaList.forEach(loc => {
-                    const option = document.createElement('option');
-                    option.value = loc.desa;
-                    option.textContent = loc.desa;
-                    desaSelect.appendChild(option);
-                });
+            desaList.forEach(loc => {
+                const option = document.createElement('option');
+                option.value = loc.desa;
+                option.textContent = loc.desa;
+                option.dataset.jarak = loc.jarak;
+                desaSelect.appendChild(option);
+            });
 
-                // Jika user sebelumnya sudah punya desa, coba set lagi secara otomatis
-                <?php if (!empty($user['desa'])): ?>
-                    const userDesa = <?= json_encode($user['desa']) ?>;
-                    desaSelect.value = userDesa;
-                <?php endif; ?>
+            <?php if (!empty($user['desa'])): ?>
+                const userDesa = <?= json_encode($user['desa']) ?>;
+                desaSelect.value = userDesa;
+            <?php endif; ?>
+
+            // Panggil fungsi update ongkir setelah desa diperbarui
+            updateOngkirFromDesa();
+        }
+
+        function updateOngkirFromDesa() {
+            const desaSelect = document.getElementById('desa');
+            const selectedOption = desaSelect.options[desaSelect.selectedIndex];
+
+            if (!selectedOption || !selectedOption.dataset.jarak) {
+                // Jika belum valid
+                return;
             }
 
-            // Auto trigger saat load (jika ada default dari user)
-            window.addEventListener('DOMContentLoaded', function () {
-                <?php if (!empty($user['kecamatan'])): ?>
-                    document.getElementById('kecamatan').value = <?= json_encode($user['kecamatan']) ?>;
-                    filterDesa();
-                <?php endif; ?>
-            });
+            const jarak = parseInt(selectedOption.dataset.jarak || 0);
+            const ongkir = jarak * 2000;
+
+            // Update tampilan ongkir
+            const ongkirElem = document.querySelector('[name="ongkir"]');
+            if (ongkirElem) {
+                ongkirElem.textContent = `Ongkir: Rp${ongkir.toLocaleString('id-ID')}`;
+            }
+
+            const hargaProduk = <?= $checkout['jumlah'] * $checkout['harga'] ?>;
+            const diskon = <?= $diskon ?>;
+            const total = hargaProduk + ongkir - diskon;
+
+            const totalElem = document.querySelector('.total-price h5');
+            if (totalElem) {
+                totalElem.textContent = `Total: Rp${total.toLocaleString('id-ID')}`;
+            }
+
+            // Update hidden input jika dikirim ke backend
+            const ongkirInput = document.getElementById('ongkir_input');
+            if (ongkirInput) {
+                ongkirInput.value = ongkir;
+            }
+        }
+
+        // Event ketika desa berubah
+        window.addEventListener('DOMContentLoaded', function () {
+            const kecSelect = document.getElementById('kecamatan');
+            const desaSelect = document.getElementById('desa');
+
+            kecSelect.addEventListener('change', filterDesa);
+            desaSelect.addEventListener('change', updateOngkirFromDesa);
+
+            // Auto set default jika user sudah punya kecamatan
+            <?php if (!empty($user['kecamatan'])): ?>
+                kecSelect.value = <?= json_encode($user['kecamatan']) ?>;
+                filterDesa();
+            <?php endif; ?>
+        });
     </script>
     <script src="./app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

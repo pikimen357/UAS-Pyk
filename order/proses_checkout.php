@@ -3,11 +3,12 @@ session_start();
 include_once("../config.php");// koneksi ke database
 
 // Asumsi sudah login
-$id_user =  $_SESSION['user'] ?? null;
-if (!$id_user) {
+$user =  $_SESSION['user'] ?? null;
+if (!$user) {
     die("User belum login.");
 }
 
+$id_user = $user['id_user'] ?? null;
 // Ambil data dari POST
 $pemesan = $_POST['pemesan'];
 $telepon = $_POST['telepon'];
@@ -55,6 +56,6 @@ $stmt->bind_param("isdi", $id_order, $id_peyek, $jumlah, $harga);
 $stmt->execute();
 
 // Redirect ke halaman sukses atau tampilkan pesan
-header("Location: ../products/checkout_sukses.php?id_order=$id_order");
+header("Location: checkout_sukses.php?id_order=$id_order");
 exit;
 ?>
