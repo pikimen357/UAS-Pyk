@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100"  background="../assets/bumbu.png">
+<body class="d-flex flex-column min-vh-100"  >
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
@@ -75,11 +75,11 @@ if (isset($_POST['submit'])) {
         <?php endif; ?>
 
         <form action="index.php" method="post">
-                 <div class="col-md-6 mb-4 mb-md-0">
+                 <div class=" mb-4 ">
                     <label for="nama" class="form-label">Nama</label>
                     <input type="text" name="nama" id="nama" required class="form-control">
                 </div>
-                <div class="col-md-6 mb-3 mb-md-0">
+                <div class=" mb-3">
                     <label class="form-label" for="password">Password</label>
                     <input type="password" name="password" id="password" required class="form-control">
                 </div>

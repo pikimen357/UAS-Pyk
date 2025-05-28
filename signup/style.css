@@ -7,14 +7,14 @@ nav{
 
 body {
   background-image: url('../assets/bumbu.png');
-  background-size: 700px auto;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center;
 }
 
 #signup{
   max-width:370px;
-  margin-top: 70px;
+  margin-top: 120px;
   margin-bottom: 80px;
   border-radius: 7px;
 }

@@ -7,9 +7,11 @@ nav{
 
 body {
   background-image: url('../assets/bumbu.png');
-  background-size: 500px auto;
+  /* background-size: 500px auto; */
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center;
+  background-size: cover;
+  /* background-color: aquamarine; */
 }
 
 #loginContainer{
@@ -19,6 +21,7 @@ body {
   height: 350px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 140px;
   
 }
 
