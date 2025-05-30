@@ -5,6 +5,11 @@ nav{
     height: 60px;
 }
 
+main {
+    margin-top: 100px;
+    margin-bottom: 10px;
+}
+
 footer {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;

@@ -48,7 +48,7 @@ $diskon = 2000;
             <a class="navbar-brand fw-bold text-white" href="../landing/">Peyek Kriuk</a>
             <div class="ms-auto">
                 <a class="nav-link d-inline text-white me-3" href="../login/">Login</a>
-                <a class="nav-link d-inline text-white" href="#" value="<?= htmlspecialchars($user['nama']) ?>"><?= htmlspecialchars($user['nama']) ?></a>
+                <a class="nav-link d-inline text-white text-uppercase fw-bold" href="#" value="<?= strtoupper(htmlspecialchars($user['nama'])) ?>"><?= htmlspecialchars($user['nama']) ?></a>
             </div>
         </div>
     </nav>

@@ -38,9 +38,9 @@ if (isset($_POST['submit'])) {
             mysqli_stmt_bind_param($stmt, "sssss", $nama, $telepon, $password_hash, $id_lokasi, $alamat);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            echo "<div class='alert alert-success m-3'>Akun berhasil dibuat!</div>";
+            echo '<div class="alert alert-success m-3" style="margin-top: 100px;">Akun berhasil dibuat!</div>';
         } else {
-            echo "<div class='alert alert-danger m-3'>Lokasi tidak ditemukan.</div>";
+            echo "<div class='alert alert-danger m-3' style='margin-top: 100px;'>Lokasi tidak ditemukan.</div>";
         }
     } else {
         foreach ($errors as $e) {
@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
 
-    <div id="signup" class="container p-4" style="background-color: #c8ae7c;">
+    <div id="signup" class="container p-4 fw-bold fs-6" style="background-color: #c8ae7c;">
         <form action="index.php" method="post" class="p-3">
 
             <div class="row mb-3">
@@ -125,9 +125,13 @@ if (isset($_POST['submit'])) {
                 <textarea name="alamat" id="alamat" required class="form-control"></textarea>
             </div>
 
-            <div class="mt-3">
-                <input type="submit" value="Buat Akun" name="submit" class="btn btn-secondary">
-                <a href="index.php" class="btn btn-danger">Batal</a>
+            <div class="d-flex justify-content-center mt-3">
+                <div class="p-2">
+                    <input type="submit" value="Buat Akun" name="submit" class="btn btn-primary" style="width: 112px;">
+                </div>
+                <div class="p-2">
+                    <a href="index.php" class="btn btn-danger" style="width: 112px;">Batal</a>
+                </div>
             </div>
         </form>
     </div>

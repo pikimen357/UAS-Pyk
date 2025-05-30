@@ -206,15 +206,15 @@ function getStatusBadge($status) {
                 <h2 class="mb-4 fw-bold">Daftar Pesanan</h2>
                 
                 <!-- Order Cards -->
-                <div class="order-list">
+                <div class="order-list mb-5">
                     <?php if ($result && $result->num_rows > 0): ?>
                         <?php while($row = $result->fetch_assoc()): ?>
-                            <div class="order-card mb-3 rounded">
+                            <div class="order-card mb-4 rounded">
                                 <div class="row align-items-center">
-                                    <div class="col-md-2 col-sm-3 mb-3 mb-md-0">
+                                    <div class="col-md-4 col-sm-6 mb-3 mb-md-0">
                                         <img src="<?php echo !empty($row['gambar']) ? '../assets/' . $row['gambar'] : '../assets/default.png'; ?>" 
                                              alt="<?php echo htmlspecialchars($row['nama_peyek']); ?>" 
-                                             class="img-fluid rounded">
+                                             class="img-fluid rounded" style="width: 100%; height: auto;">
                                     </div>
                                     <div class="col-md-7 col-sm-9">
                                         <h5 class="order-title">
@@ -227,12 +227,12 @@ function getStatusBadge($status) {
                                         <p class="order-price mb-1">
                                             Total: <?php echo formatRupiah($row['jumlah_bayar']); ?>
                                         </p>
-                                        <span class="badge <?php echo getStatusBadge($row['status']); ?>">
+                                        <span class="badge <?php echo getStatusBadge($row['status']); ?> p-2">
                                             <?php echo ucfirst($row['status']); ?>
                                         </span>
                                     </div>
                                     <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                        <button class="btn btn-primary" onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
+                                        <button  type="button" class="btn btn-primary btn-sm" style="" onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
                                             Lihat Detail
                                         </button>
                                     </div>

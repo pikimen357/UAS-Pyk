@@ -13,15 +13,16 @@ body {
 }
 
 #signup{
-  max-width:370px;
+  width:370px;
   margin-top: 120px;
   margin-bottom: 80px;
   border-radius: 7px;
+  background: linear-gradient(135deg, #A67B5B, #C2A675);
 }
 
 @media screen and (max-width: 470px) {
   #signup {
-    max-width: 200px;
+    max-width: 320px;
   }
   
 }

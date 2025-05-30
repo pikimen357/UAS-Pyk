@@ -25,7 +25,7 @@ $harga = $_SESSION['checkout']['harga'] ?? 20000;
 $id_peyek = $_SESSION['checkout']['id_peyek'] ?? 'P001';
 
 // Validasi lokasi
-$stmt = $conn->prepare("SELECT id_lokasi FROM lokasi WHERE kecamatan = ? AND desa = ?");
+$stmt = $conn->prepare("SELECT id_lokasi, jarak FROM lokasi WHERE kecamatan = ? AND desa = ?");
 $stmt->bind_param("ss", $kecamatan, $desa);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -34,6 +34,9 @@ if (!$row) {
     die("Lokasi tidak valid");
 }
 $id_lokasi = $row['id_lokasi'];
+$jarak = $row['jarak'] ?? 1;
+
+$hrg_ongkir = $jarak * 2000;
 
 // Hitung total bayar
 $jumlah_bayar = ($jumlah * $harga) + $hrg_ongkir + $biaya_admin - $diskon;
@@ -56,6 +59,6 @@ $stmt->bind_param("isdi", $id_order, $id_peyek, $jumlah, $harga);
 $stmt->execute();
 
 // Redirect ke halaman sukses atau tampilkan pesan
-header("Location: checkout_sukses.php?id_order=$id");
+header("Location: checkout_sukses.php?id=$id_order");
 exit;
 ?>

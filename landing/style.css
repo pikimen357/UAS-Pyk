@@ -90,10 +90,13 @@ p{
 }
 
 footer {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: #c8ae7c;
 }
 
+footer h5{
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 

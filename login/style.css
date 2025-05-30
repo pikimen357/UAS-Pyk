@@ -50,16 +50,15 @@ body {
   /* background-color: aquamarine; */
 }
 
-#loginContainer{
-  margin-top: 160px;
-  background-color: #C2A675;
-  max-width: 300px;
-  height: 350px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 140px;
-  
+#loginContainer {
+  margin-top: 150px;
+  background: linear-gradient(135deg, #A67B5B, #C2A675);
+  max-width: 320px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
+
 
 footer {
   margin-bottom: 0 !important;

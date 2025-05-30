@@ -103,9 +103,9 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <div class="container p-5 bg-white shadow-sm rounded mb-2" style="font-size: smaller;">
 
 
-            <div class="text-center mb-4">
-                <h2>🎉 Pemesanan Berhasil!</h2>
-                <p class="lead">Terima kasih atas pesanan Anda. Berikut adalah detail pemesanan:</p>
+            <div class="text-center mb-5">
+                <h2> Pemesanan Berhasil!</h2>
+                <p class="lead">Terima kasih atas pesanan Anda</p>
             </div>
 
             <div class="row mb-4">

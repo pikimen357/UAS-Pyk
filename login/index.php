@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['password'])) {
                 $successMessage = "Login berhasil." . htmlspecialchars($user['nama']) . "!";
-                
+
                 // (Opsional) Set session
                 session_start();
                 $_SESSION['user'] = $user;
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100"  >
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
 
-    <nav class="sub-navbar fixed-top">
+    <!-- <nav class="sub-navbar fixed-top">
         <div class="container">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -74,35 +74,44 @@ if (isset($_POST['submit'])) {
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
+    <div id="loginContainer" class="container rounded shadow">
+        <div class="p-4 d-flex flex-column align-items-center">
+            <?php if (!empty($successMessage)) : ?>
+                <div class="alert alert-success w-100 text-center"><?php echo $successMessage; ?></div>
+            <?php endif; ?>
 
-    <div class="container p-5 rounded" id="loginContainer">
-        <?php if (!empty($successMessage)) : ?>
-            <div class="alert alert-success"><?php echo $successMessage; ?></div>
-        <?php endif; ?>
+            <?php if (!empty($errors)) : ?>
+                <?php foreach ($errors as $error) : ?>
+                    <div class="alert alert-danger w-100 text-center"><?php echo $error; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
-        <?php if (!empty($errors)) : ?>
-            <?php foreach ($errors as $error) : ?>
-                <div class="alert alert-danger"><?php echo $error; ?></div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            <h4 class="mb-4 text-white text-xl fw-bold">Login Akun</h4>
 
-        <form action="index.php" method="post">
-                 <div class=" mb-4 ">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" name="nama" id="nama" required class="form-control">
+            <form action="index.php" method="post" class="w-100">
+                <div class="mb-3">
+                    <label for="nama" class="form-label fw-bold text-white">Nama</label>
+                    <input type="text" name="nama" id="nama" required class="form-control" >
                 </div>
-                <div class=" mb-3">
-                    <label class="form-label" for="password">Password</label>
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-bold text-white">Password</label>
                     <input type="password" name="password" id="password" required class="form-control">
                 </div>
-                <div class="mt-3">
-                    <input type="submit" value="Login" name="submit" class="btn btn-dark">
-                    <a href="index.php" class="btn btn-danger">Batal</a>
+                <div class="text-start mb-4 mt-4">
+                    <p style="font-size: 13px;" class="text-white">
+                        Belum punya akun? <a href="../signup/index.php" class="text-light text-decoration-underline">Buat akun</a>
+                    </p>
                 </div>
-        </form>
+                <div class="d-grid gap-2 mb-3">
+                    <input type="submit" value="Login" name="submit" class="btn btn-primary w-100">
+                    <a href="index.php" class="btn btn-danger w-100">Batal</a>
+                </div>
+            </form>
+        </div>
     </div>
+
 
 
     <footer class="mt-auto py-3" style="background-color: #c8ae7c;">
