@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../login/index.php");
+    exit();
+}
+$user = $_SESSION['user'];
+
 include_once("../config.php");
 
 $sql = "SELECT * FROM peyek";
@@ -12,7 +19,7 @@ $result = $conn->query($sql);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Beli Peyek</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -22,10 +29,26 @@ $result = $conn->query($sql);
       <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
       <div class="ms-auto">
         <a class="nav-link d-inline text-white me-3" href="../login/index.php">Login</a>
-        <a class="nav-link d-inline text-white" href="#">Profile</a>
+        <a class="nav-link d-inline text-white" href="#"><?= strtoupper(htmlspecialchars($user['nama'])) ?></a>
       </div>
     </div>
   </nav>
+
+
+    <nav class="sub-navbar fixed-top">
+        <div class="container">
+            <ul class="nav justify-content-evenly">
+                <li class="nav-item">
+                    <a class="nav-link" href="../products/index.php">Daftar Produk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../orders/index.php">Pesanan Anda</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
 
   <main>
     <div class="d-flex justify-content-center container" id="orderCont">
@@ -98,7 +121,8 @@ $result = $conn->query($sql);
 
   <script src="app.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
 </body>
 
 </html>

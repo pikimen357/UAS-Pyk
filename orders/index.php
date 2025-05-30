@@ -179,13 +179,28 @@ function getStatusBadge($status) {
             <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
                 <a class="nav-link d-inline text-white me-3" href="../login/index.php">Login</a>
-                <a class="nav-link d-inline text-white" href="#">Profile</a>
+                <a class="nav-link d-inline text-white" href="#"><?= strtoupper(htmlspecialchars($user['nama'])) ?></a>
             </div>
         </div>
     </nav>
 
+
+    <nav class="sub-navbar fixed-top">
+        <div class="container">
+            <ul class="nav justify-content-evenly">
+                <li class="nav-item">
+                    <a class="nav-link" href="../products/index.php">Daftar Produk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../orders/index.php">Pesanan Anda</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
     <!-- Main Content -->
-    <main class="d-flex container mt-5 pt-5">
+    <main class="d-flex container pt-5" style="margin-top: 90px;">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h2 class="mb-4 fw-bold">Daftar Pesanan</h2>

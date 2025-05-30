@@ -19,9 +19,18 @@ body {
   border-radius: 7px;
 }
 
+@media screen and (max-width: 470px) {
+  #signup {
+    max-width: 200px;
+  }
+  
+}
+
 footer {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
+
+
 
 

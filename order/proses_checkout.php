@@ -56,6 +56,6 @@ $stmt->bind_param("isdi", $id_order, $id_peyek, $jumlah, $harga);
 $stmt->execute();
 
 // Redirect ke halaman sukses atau tampilkan pesan
-header("Location: checkout_sukses.php?id_order=$id_order");
+header("Location: checkout_sukses.php?id_order=$id");
 exit;
 ?>

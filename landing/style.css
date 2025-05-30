@@ -2,11 +2,50 @@ nav{
     background-color: #C6AC66;
     font-family: 'Courier New', Courier, monospace;
     font-size: smaller;
-    height: 60px;
+    height: 70px;
 }
 
+       /* Custom styles untuk subnavbar */
+        .sub-navbar {
+            background-color: rgb(255, 252, 247);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            margin-top: 65px; /* Adjust sesuai tinggi navbar utama */
+            height: 50px;
+        }
+        
+        .sub-navbar .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        
+        .sub-navbar .nav-link.active {
+            /* background-color: rgba(255, 255, 255, 0.3); */
+            font-weight: 600;
+        }
+        
+        /* Responsive untuk mobile */
+        @media (max-width: 768px) {
+            .sub-navbar {
+                padding: 10px 0;
+            }
+            
+            .sub-navbar .nav-link {
+                padding: 6px 15px;
+                margin: 2px;
+                font-size: 14px;
+            }
+        }
+        
+
+
 main{
-    margin-top: 55px;
+    margin-top: 100px;
     margin-bottom: 10px;
 }
 
@@ -35,6 +74,7 @@ p{
 
 #topImg{
     max-width: 270px;
+    margin-left: 0px;
 }
 
 #varian img{
@@ -54,5 +94,6 @@ footer {
   padding-bottom: 0 !important;
 
 }
+
 
 

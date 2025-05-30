@@ -63,6 +63,20 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
 
+    <nav class="sub-navbar fixed-top">
+        <div class="container">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="../products/index.php">Daftar Produk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../orders/index.php">Pesanan Anda</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
     <div class="container p-5 rounded" id="loginContainer">
         <?php if (!empty($successMessage)) : ?>
             <div class="alert alert-success"><?php echo $successMessage; ?></div>

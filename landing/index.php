@@ -1,3 +1,8 @@
+<?php
+session_start();
+$user = $_SESSION['user'] ?? null;
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -13,11 +18,31 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white" href="#">Peyek Kriuk</a>
+            <a class="navbar-brand fw-bold text-white" href="../landing/index.php">Peyek Kriuk</a>
             <div class="ms-auto">
-                <a class="nav-link d-inline text-white me-3" href="../signup/index.php">Daftar</a>
-                <a class="nav-link d-inline text-white" href="../login/index.php">Login</a>
+                <?php if ($user) : ?>
+                    <a class="nav-link d-inline text-white" href="../login/index.php">Login</a>
+                    <a class="nav-link d-inline text-white fw-bold" href="#">
+                        <?= strtoupper(htmlspecialchars($user['nama'])) ?>
+                    </a>
+                <?php else : ?>
+                    <a class="nav-link d-inline text-white me-3" href="../signup/index.php">Daftar</a>
+                    <a class="nav-link d-inline text-white" href="../login/index.php">Login</a>
+                <?php endif; ?>
             </div>
+        </div>
+    </nav>
+
+    <nav class="sub-navbar fixed-top">
+        <div class="container">
+            <ul class="nav justify-content-evenly">
+                <li class="nav-item">
+                    <a class="nav-link" href="../products/index.php">Daftar Produk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../orders/index.php">Pesanan Anda</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
