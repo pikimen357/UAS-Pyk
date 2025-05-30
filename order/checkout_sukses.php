@@ -68,8 +68,45 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             height: 70px;
         }
 
+        .sub-navbar {
+            background-color: rgb(255, 252, 247);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            margin-top: 65px;
+            /* Adjust sesuai tinggi navbar utama */
+            height: 50px;
+        }
+
+        .sub-navbar .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+
+        .sub-navbar .nav-link.active {
+            /* background-color: rgba(255, 255, 255, 0.3); */
+            font-weight: 600;
+        }
+
+        /* Responsive untuk mobile */
+        @media (max-width: 768px) {
+            .sub-navbar {
+                padding: 10px 0;
+            }
+
+            .sub-navbar .nav-link {
+                padding: 6px 15px;
+                margin: 2px;
+                font-size: 14px;
+            }
+        }
+
         main {
-            margin-top: 20px;
+            margin-top: 70px;
         }
 
         footer {
@@ -97,6 +134,22 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
     </nav>
 
+
+    <nav class="sub-navbar fixed-top">
+        <div class="container">
+            <ul class="nav justify-content-evenly">
+                <li class="nav-item">
+                    <a class="nav-link" href="../products/index.php">Daftar Produk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../orders/index.php">Pesanan Anda</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
     <!-- Konten -->
     <main class="container flex-grow-1">
 
@@ -112,18 +165,18 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 <div class="col-md-6">
                     <h5>Informasi Order</h5>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>ID Order:</strong> <?= $order['id_order'] ?></li>
-                        <li class="list-group-item"><strong>Tanggal Pesan:</strong> <?= $order['tgl_pesan'] ?></li>
-                        <li class="list-group-item"><strong>Status:</strong> <?= ucfirst($order['status']) ?></li>
+                        <li class="list-group-item"><strong>ID Order:</strong><br> <?= $order['id_order'] ?></li>
+                        <li class="list-group-item"><strong>Tanggal Pesan:</strong><br> <?= $order['tgl_pesan'] ?></li>
+                        <li class="list-group-item"><strong>Status:</strong><br> <?= strtoupper($order['status']) ?></li>
                     </ul>
                 </div>
 
                 <div class="col-md-6">
                     <h5>Alamat Pengiriman</h5>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>Kecamatan:</strong> <?= htmlspecialchars($order['kecamatan']) ?></li>
-                        <li class="list-group-item"><strong>Desa:</strong> <?= htmlspecialchars($order['desa']) ?></li>
-                        <!-- <li class="list-group-item"><strong>Alamat:</strong> <?= nl2br(htmlspecialchars($user['alamat'])) ?></li> -->
+                        <li class="list-group-item"><strong>Kecamatan:</strong><br> <?= htmlspecialchars($order['kecamatan']) ?></li>
+                        <li class="list-group-item"><strong>Desa:</strong><br> <?= htmlspecialchars($order['desa']) ?></li>
+                        <li class="list-group-item"><strong>Alamat:</strong><br> <?= nl2br(htmlspecialchars($order['alamat_kirim'])) ?></li>
                     </ul>
                 </div>
             </div>
@@ -167,28 +220,44 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             </ul>
 
             <h5>Metode Pembayaran</h5>
-            <?php if($order['metode'] == 'qris') :?>
-                <img src="../assets/qris.png" alt="" srcset="" style="width: 90px; height: 45px;"> 
-            <?php elseif($order['metode'] == 'gopay') :?>
-                <img src="../assets/gopay.png" alt="" srcset="" style="width: 90px; height: 45px;">
-            <?php elseif($order['metode'] == 'cod') :?>
-                <img src="../assets/cod.png" alt="" srcset="" style="width: 90px; height: 45px;">   
+            <?php if ($order['metode'] == 'qris') : ?>
+                <img src="../assets/qris.png" alt="" srcset="" style="width: 100px; height: 45px;">
+            <?php elseif ($order['metode'] == 'gopay') : ?>
+                <img src="../assets/gopay.png" alt="" srcset="" style="width: 100px; height: 45px;">
+            <?php elseif ($order['metode'] == 'cod') : ?>
+                <img src="../assets/cod.png" alt="" srcset="" style="width: 100px; height: 45px;">
 
             <?php endif; ?>
             <!-- <p class="fw-bold" style="font-size: x-large"><?= strtoupper($order['metode']) ?></p> -->
 
-            
-            <?php if ($order['status'] == 'belum bayar') : ?>
-                <div class="row mb-4 mt-3">
-                    <div class="col-md-6 text-center mt-4">
-                        <a href="#" class="btn btn-primary p-3" style="width: 190px;">Bayar Sekarang</a>
-                    </div>
-                    <div class="col-md-6 text-center mt-4">
-                        <a href="../orders/index.php" class="btn btn-secondary p-3" style="width: 190px;">Kembali ke Beranda</a>
-                    </div>
-                </div>
 
+            <?php if ($order['status'] == 'belum bayar') : ?>
+                <form action="proses_pembayaran.php" method="POST">
+                    <input type="hidden" name="id_order" value="<?= $order['id_order'] ?>">
+                    <div class="row mb-4 mt-3">
+                        <div class="col-md-6 text-center mt-4">
+                            <button type="submit" id="btnBayar" class="btn btn-primary p-3" style="width: 190px;">Bayar Sekarang</button>
+                        </div>
+                        <div class="col-md-6 text-center mt-4">
+                            <a href="../orders/index.php" class="btn btn-secondary p-3" style="width: 190px;">Kembali</a>
+                        </div>
+                    </div>
+                </form>
+            <?php elseif ($order['status'] == 'diproses') : ?>
+                <div class="container">
+                    <p class="mt-3 fs-5 fst-italic" style="font-family:'Times New Roman', 'Times, serif';">
+                        Dibayar pada: <?php echo $order['tgl_payment'] ?>
+                    </p>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="../orders/index.php" class="btn btn-primary p-3" style="width: 190px;">Kembali</a>
+                </div>
+            <?php elseif ($order['status'] == 'selesai') : ?>
+                <div class="text-center mt-4 fs-4">
+                    <a href="#" class="btn btn-success p-3" style="width: 190px;">Review</a>
+                </div>
             <?php endif ?>
+
 
         </div>
     </main>

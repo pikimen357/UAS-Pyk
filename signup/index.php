@@ -78,29 +78,29 @@ if (isset($_POST['submit'])) {
 
             <div class="row mb-3">
                 <div class="col-md-6 mb-3 mb-md-0">
-                    <label for="nama" class="form-label">Nama</label>
+                    <label for="nama" class="form-label text-white">Nama</label>
                     <input type="text" name="nama" id="nama" required class="form-control">
                 </div>
                 <div class="col-md-6">
-                    <label for="telepon" class="form-label">Telepon</label>
+                    <label for="telepon" class="form-label text-white">Telepon</label>
                     <input type="text" name="telepon" id="telepon" required class="form-control">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-6 mb-3 mb-md-0">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label  text-white" for="password">Password</label>
                     <input type="password" name="password" id="password" required class="form-control">
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" for="password">Konfirm password</label>
+                    <label class="form-label  text-white" for="password">Konfirm password</label>
                     <input type="password" name="password" id="password" required class="form-control">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-6 mb-3 mb-md-0">
-                    <label  class="form-label"  for="kecamatan">Kecamatan</label>
+                    <label  class="form-label  text-white"  for="kecamatan">Kecamatan</label>
                     <select name="kecamatan" id="kecamatan" onchange="filterDesa()" class="form-select" required>
                         <option value="">Pilih Kecamatan</option>
                         <?php
@@ -113,7 +113,7 @@ if (isset($_POST['submit'])) {
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label" for="desa">Desa</label>
+                    <label class="form-label  text-white" for="desa">Desa</label>
                     <select name="desa" id="desa" class="form-select" required>
                         <option value="">Pilih Desa</option>
                     </select>
@@ -121,7 +121,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="mb-3">
-                <label for="alamat">Detail Alamat</label>
+                <label for="alamat" class="form-label text-white">Detail Alamat</label>
                 <textarea name="alamat" id="alamat" required class="form-control"></textarea>
             </div>
 

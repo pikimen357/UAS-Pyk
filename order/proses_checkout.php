@@ -17,9 +17,10 @@ $desa = $_POST['desa'];
 $alamat = $_POST['alamat'];
 $pesan = $_POST['pesan'] ?? '';
 $metode_pembayaran = $_POST['payment']; // Ambil salah satu
-$hrg_ongkir = 5000; //jika ada ongkir tetap, bisa diubah sesuai logika bisnis
+
 $diskon = 2000; // bisa dihitung otomatis kalau ada logika diskon
 $biaya_admin = 0; // contoh
+
 $jumlah = $_SESSION['checkout']['jumlah'] ?? 1;
 $harga = $_SESSION['checkout']['harga'] ?? 20000;
 $id_peyek = $_SESSION['checkout']['id_peyek'] ?? 'P001';
@@ -48,8 +49,8 @@ $stmt->execute();
 $id_payment = $conn->insert_id;
 
 // 2. Simpan ke orders
-$stmt = $conn->prepare("INSERT INTO orders (id_user, id_lokasi, pesan, id_payment, hrg_ongkir, diskon) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("issiii", $id_user, $id_lokasi, $pesan, $id_payment, $hrg_ongkir, $diskon);
+$stmt = $conn->prepare("INSERT INTO orders (id_user, id_lokasi, pesan, id_payment, hrg_ongkir, diskon, alamat_kirim) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("issiiis", $id_user, $id_lokasi, $pesan, $id_payment, $hrg_ongkir, $diskon, $alamat);
 $stmt->execute();
 $id_order = $conn->insert_id;
 
