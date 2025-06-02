@@ -51,12 +51,12 @@ $result = $conn->query($sql);
 
 
   <main>
-    <div class="d-flex justify-content-center container" id="orderCont">
-      <div class="box-wrapper row w-100" style="max-width: 370px;">
-        <div class="col">
+    <div class="d-flex justify-content-center align-items-center container" id="orderCont">
+      <div class="box-wrapper row gap-1 mt-2" style="width: 380px;">
+        <div class="col  mt-2" style="margin-right: 8px;">
           <img src="../assets/pkacang.png" class="mt-1" id="topImg" data-id="pkcg" alt="">
         </div>
-        <div class="col" id="col2">
+        <div class="col  mt-2" id="col2">
           <h5 id="Pkacang">Peyek Kacang</h5>
           <p id="hargaDisplay" style="font-size: 10px;"><strong>Rp50.000/kg</strong></p>
           <p id="toping" class="transparent-text">Toping kacang tanah</p>
@@ -71,14 +71,14 @@ $result = $conn->query($sql);
           <p class="mt-2" id="harga" value="50000"></p>
         </div>
 
-        <button class="btn btn-dark btn-sm mt-2" id="checkout">Checkout</button>
+        <button class="btn btn-dark btn-sm mt-2 p-2 mb-2" id="checkout">Checkout</button>
       </div>
     </div>
 
 
     <div class="d-flex justify-content-center container p-4 mt-5" id="varCont">
       <div class="row w-100 mb-5" style="max-width: 600px;">
-        <h2 id="varianLain" class="mb-4">Varian Lainnya</h2>
+        <h2 id="varianLain" class="mb-4 fw-bold fs-3">Varian Lainnya</h2>
         <?php while($row = $result->fetch_assoc()) { ?>
           <div class="col varian-item p-3 mb-4" style="line-height: 22px; cursor: pointer;"
             data-id="<?= $row['id_peyek'] ?>"

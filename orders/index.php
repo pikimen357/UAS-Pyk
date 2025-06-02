@@ -232,7 +232,7 @@ function getStatusBadge($status) {
                                         </span> -->
                                     </div>
                                     <div class="col-md-3  mt-3 mt-md-0 text-md-end">
-                                        <button  type="button" class="btn <?php echo getStatusBadge($row['status']); ?> btn-sm w-50 text-white fw-bold p-3 rounded"  onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
+                                        <button  type="button" class="btn <?php echo getStatusBadge($row['status']); ?> btn-sm text-white fw-bold p-2 rounded" style="width: 110px;"  onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
                                             <?php echo ucfirst($row['status']); ?>
                                         </button>
                                     </div>
