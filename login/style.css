@@ -42,12 +42,10 @@ nav{
         }
 
 body {
-  background-image: url('../assets/bumbu.png');
-  /* background-size: 500px auto; */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  /* background-color: aquamarine; */
+    background-image: url('../assets/wallpaperPYK.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 #loginContainer {

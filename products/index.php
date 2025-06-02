@@ -76,7 +76,7 @@ $result = $conn->query($sql);
     </div>
 
 
-    <div class="d-flex container p-4 mt-5" id="varCont">
+    <div class="d-flex justify-content-center container p-4 mt-5" id="varCont">
       <div class="row w-100 mb-5" style="max-width: 600px;">
         <h2 id="varianLain" class="mb-4">Varian Lainnya</h2>
         <?php while($row = $result->fetch_assoc()) { ?>

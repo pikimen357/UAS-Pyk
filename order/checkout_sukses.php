@@ -51,9 +51,9 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a2e0bf0f4e.js" crossorigin="anonymous"></script>
     <style>
-        * {
-            zoom: 110%;
-        }
+        /* * {
+            zoom: 100%;
+        } */
 
         body {
             padding-top: 80px;
@@ -162,7 +162,7 @@ $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             </div>
 
             <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-4">
                     <h5>Informasi Order</h5>
                     <ul class="list-group">
                         <li class="list-group-item"><strong>ID Order:</strong><br> <?= $order['id_order'] ?></li>

@@ -33,11 +33,11 @@ function formatTanggal($tanggal) {
 function getStatusBadge($status) {
     switch(strtolower($status)) {
         case 'selesai':
-            return 'bg-success';
-        case 'dikirim':
-            return 'bg-warning text-dark';
+            return 'bg-primary text';
+        case 'belum bayar':
+            return 'bg-danger text';
         case 'diproses':
-            return 'bg-info';
+            return 'bg-success text-white';
         case 'dibatalkan':
             return 'bg-secondary';
         default:
@@ -200,7 +200,7 @@ function getStatusBadge($status) {
 
 
     <!-- Main Content -->
-    <main class="d-flex container pt-5" style="margin-top: 90px;">
+    <main class="d-flex justify-content-center  container pt-5" style="margin-top: 90px;">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h2 class="mb-4 fw-bold">Daftar Pesanan</h2>
@@ -214,7 +214,7 @@ function getStatusBadge($status) {
                                     <div class="col-md-4 col-sm-6 mb-3 mb-md-0">
                                         <img src="<?php echo !empty($row['gambar']) ? '../assets/' . $row['gambar'] : '../assets/default.png'; ?>" 
                                              alt="<?php echo htmlspecialchars($row['nama_peyek']); ?>" 
-                                             class="img-fluid rounded" style="width: 100%; height: auto;">
+                                             class="img-fluid rounded w-100" style="width: 100%; height: auto;">
                                     </div>
                                     <div class="col-md-7 col-sm-9">
                                         <h5 class="order-title">
@@ -227,13 +227,13 @@ function getStatusBadge($status) {
                                         <p class="order-price mb-1">
                                             Total: <?php echo formatRupiah($row['jumlah_bayar']); ?>
                                         </p>
-                                        <span class="badge <?php echo getStatusBadge($row['status']); ?> p-2">
+                                        <!-- <span class="badge <?php echo getStatusBadge($row['status']); ?> p-3 w-50 mt-4" >
                                             <?php echo ucfirst($row['status']); ?>
-                                        </span>
+                                        </span> -->
                                     </div>
-                                    <div class="col-md-3 mt-3 mt-md-0 text-md-end">
-                                        <button  type="button" class="btn btn-primary btn-sm" style="" onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
-                                            Lihat Detail
+                                    <div class="col-md-3  mt-3 mt-md-0 text-md-end">
+                                        <button  type="button" class="btn <?php echo getStatusBadge($row['status']); ?> btn-sm w-50 text-white fw-bold p-3 rounded"  onclick="lihatDetail(<?php echo $row['id_order']; ?>)">
+                                            <?php echo ucfirst($row['status']); ?>
                                         </button>
                                     </div>
                                 </div>
