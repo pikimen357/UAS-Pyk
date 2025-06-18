@@ -3,15 +3,14 @@
 Aplikasi ini adalah sistem pemesanan produk (peyek) sederhana berbasis web menggunakan PHP dan MySQL. Pengguna dapat melihat produk, melakukan pemesanan, dan melihat riwayat pembelian.
 
 🚀 Fitur Utama
-- `CRUD Produk (Create, Read, Update, Delete)`
 
 - `Registrasi & Login pengguna`
 
-- `Form pemesanan produk`
+- `Form pemesanan/checkout produk`
 
 - `Simpan data transaksi ke database MySQL`
-
-- `Admin panel sederhana (opsional)`
+  
+- `pembayaran digital`
 
 🛠️ Teknologi yang Digunakan
 - `PHP native`
